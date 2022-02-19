@@ -1,34 +1,48 @@
 import time
 
+intervals = []
+
+for x in range(30,841,30):
+    intervals.append(x)
+    # print(len(intervals))
+
 rd = 0 #rewarded days
 t = 0 #temp
-st = 30 #stakedTime (days)
-wt = 40 #withdrawTime (days)
-tt = wt - st #days
-hs = st
 r = 0 #reward
-value = 100
+value = 10000
 value = value - (value * (10/100))
 total_reward = 0
+    
+for timeVar in intervals:
+    
+    st = timeVar #stakedTime (days)
+    wt = timeVar+1 #withdrawTime (days)
+    tt = wt - st #days
+    hs = st
+    
+    print("st: " + str(st) + "  wt: " + str(wt))
 
-for i in range(1,29,1):
-    print("i: " + str(i))
-    mi = 30*i                               #30   
-    tt = tt-rd                              #10-0=10
-    if hs >= mi:                            #yes (hs=st=30)
-        rd = (30 + mi)-hs                   #(30+30)-30=30
-        t = t + rd                          #0+30=30
-        if (wt-st)-t < 0:                   #(40-30)-30=-20 i.e. < 0
-            rd = tt                         #10
-        else:
-            continue
-        if rd < 0:                          #No (rd=10)
-            rd = 0                          #N/A
-        r = rd * value                      #10*90=900 
-        total_reward = total_reward + r     
-        hs = rd                             #10
-    else:
-        continue
-    print("reward: " + str(r))
-print ("Total reward: "+str(total_reward))
-print ("Done")
+    for i in range(1,29,1):
+        # print("i: " + str(i))
+        mi = 30*i
+        tt = tt-rd
+        # print("tt: " + str(tt))
+        if hs >= mi:                            
+            rd = (30 + mi)-hs                   
+            t = t + rd                          
+            if (wt-st)-t < 0:                   
+                rd = tt                         
+            if rd < 0:                          
+                rd = 0                          
+            r = rd * value / 365
+            # print ("Reward: "+str(r))                
+            total_reward = total_reward + r     
+            if(rd!=0):
+                hs = rd                        
+        # print("reward: " + str(r))
+    print ("Total reward: "+str(round(total_reward,2)))
+    print("APY: " + str(round((total_reward/(value/0.9))/wt*365*100,2)) +"%")
+    print("wt: " + str(wt))
+    print("\n")
+    
+    # print ("Done")
