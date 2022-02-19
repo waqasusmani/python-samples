@@ -42,7 +42,6 @@ for timeVar in intervals:
         # print("reward: " + str(r))
     print ("Total reward: "+str(round(total_reward,2)))
     print("APY: " + str(round((total_reward/(value/0.9))/wt*365*100,2)) +"%")
-    print("wt: " + str(wt))
     print("\n")
     
     # print ("Done")
